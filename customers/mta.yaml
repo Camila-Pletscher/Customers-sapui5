@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: customers
+version: 0.0.1
+modules:
+- name: customers-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: customers-destination-service
+    parameters:
+      content-target: true
+  - name: customers_html_repo_host
+    parameters:
+      service-key:
+        name: customers_html_repo_host-key
+  - name: uaa_customers
+    parameters:
+      service-key:
+        name: uaa_customers-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: customers_customers_html_repo_host
+          ServiceInstanceName: customers-html5-app-host-service
+          ServiceKeyName: customers_html_repo_host-key
+          sap.cloud.service: customers
+        - Authentication: OAuth2UserTokenExchange
+          Name: customers_uaa_customers
+          ServiceInstanceName: customers-xsuaa-service
+          ServiceKeyName: uaa_customers-key
+          sap.cloud.service: customers
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: customers-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: customers_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comproycustomers.zip
+      name: comproycustomers
+      target-path: resources/
+- name: comproycustomers
+  type: html5
+  path: customers
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: customers-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: customers-destination-service
+    service-plan: lite
+- name: customers_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: customers-html5-app-host-service
+    service-plan: app-host
+- name: uaa_customers
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: customers-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
