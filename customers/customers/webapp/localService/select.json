@@ -1,0 +1,17 @@
+{
+
+    "Customers":[
+
+        {"CompanyName": "Alfreds Futterkiste", "Country": "Germany"},
+
+        {"CompanyName": "Ana Trujillo Emparedados y helados", "Country": "Mexico"},
+
+        {"CompanyName": "Bólido Comidas preparadas", "Country": "Spain"},
+
+        {"CompanyName": "Around the Horn", "Country": "UK"},
+
+        {"CompanyName": "Berglunds snabbköp", "Country": "Sweden"}
+
+    ]
+
+}

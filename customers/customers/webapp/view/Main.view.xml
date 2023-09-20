@@ -1,7 +1,65 @@
 <mvc:View controllerName="com.proy.customers.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Page title="{i18n>table}">
+        <content>
+            <Toolbar>
+                <Button icon="sap-icon://world" press="onChangeLanguage"/>
+                <ToolbarSpacer  />
+                <ComboBox placeholder="Seleccione un nombre" selectionChange="onChangeName" items="{
+					path: 'selectModel>/Customers',
+					sorter: { path: 'CompanyName' }
+				}">
+                    <core:Item key="{key}" text="{selectModel>CompanyName}" />
+                </ComboBox>
+                <ComboBox placeholder="Seleccione un pais" selectionChange="onChangeCountry" items="{
+					path: 'selectModel>/Customers',
+					sorter: { path: 'Country' }
+				}">
+                    <core:Item key="{key}" text="{selectModel>Country}" />
+                </ComboBox>
+
+            </Toolbar>
+
+
+
+            <Table id="listCustomers" items="{customerModel>/}">
+                <columns>
+                    <Column >
+                        <Text text="Customer ID"/>
+                    </Column>
+                    <Column >
+                        <Text text="{i18n>company}"/>
+                    </Column>
+                    <Column >
+                        <Text text="{i18n>contact}"/>
+                    </Column>
+                    <Column >
+                        <Text text="{i18n>contactTitle}"/>
+                    </Column>
+                    <Column >
+                        <Text text="{i18n>country}"/>
+                    </Column>
+                    <Column >
+                        <Text text="{i18n>phone}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem press="onPressCustomer" type="Active">
+                        <cells>
+                            <Text text="{customerModel>CustomerID}"/>
+                            <Text text="{customerModel>CompanyName}"/>
+                            <Text text="{customerModel>ContactName}"/>
+                            <Text text="{customerModel>ContactTitle}"/>
+                            <Text text="{customerModel>Country}"/>
+                            <Text text="{path: 'customerModel>Phone', formatter: '.formatPhone'}"/>
+                            <Text text="{customerModel>Phone}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+
+            </Table>
+        </content>
     </Page>
 </mvc:View>
