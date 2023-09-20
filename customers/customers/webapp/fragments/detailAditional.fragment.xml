@@ -1,14 +1,14 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
 
-  <f:SimpleForm id="infoAdicionalForm" editable="false" layout="ResponsiveGridLayout" title="Información Adicional">
+  <f:SimpleForm id="infoAdicionalForm" editable="false" layout="ResponsiveGridLayout" title="{i18n>titleAditional}">
     <f:content>
-      <Label text="Contact Title" />
+      <Label text="{i18n>contactTitle}" />
       <Text text="{selectedCustomerModel>/ContactTitle}" />
 
-      <Label text="Country" />
+      <Label text="{i18n>Country}" />
       <Text text="{selectedCustomerModel>/Country}" />
 
-      <Label text="Customer ID" />
+      <Label text="{i18n>customerId}" />
       <Text text="{selectedCustomerModel>/CustomerID}" />
     </f:content>
   </f:SimpleForm>

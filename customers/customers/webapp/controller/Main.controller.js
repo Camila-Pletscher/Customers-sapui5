@@ -5,20 +5,18 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/core/UIComponent",
     "com/proy/customers/util/Formatter",
-    "com/proy/customers/util/Commons"
+    "com/proy/customers/util/Commons",
+    "com/proy/customers/util/Constants"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Filter, FilterOperator,UIComponent, Formatter, Commons) {
+    function (Controller, JSONModel, Filter, FilterOperator,UIComponent, Formatter, Commons, Constants) {
         "use strict";
 
         return Controller.extend("com.proy.customers.controller.Main", {
             onInit: function () {
-
-
-
-                const url = sap.ui.require.toUrl("com/proy/customers") + "/northwind/northwind.svc/";
+                const url = sap.ui.require.toUrl(Constants.MODEL.model_proy) + Constants.MODEL.model_url_ext;
                 this._model = new sap.ui.model.odata.v2.ODataModel(url, {
                     json: true,
                     headers: {
@@ -30,7 +28,7 @@ sap.ui.define([
                     useBatch: false
                 });
 
-                this._model.read("/Customers", {
+                this._model.read(Constants.MODEL.entity_set, {
                     async: true,
                     success: jQuery.proxy(this.success, this),
                     error: jQuery.proxy(this.error, this)
@@ -41,7 +39,7 @@ sap.ui.define([
             success: function (oData) {
                 const oModel = new JSONModel(oData.results);
                 console.log(oModel);
-                this.getOwnerComponent().setModel(oModel, "customerModel");
+                this.getOwnerComponent().setModel(oModel, Constants.MODEL.model_name);
             },
             error: function () {
                 alert('error');
@@ -74,16 +72,16 @@ sap.ui.define([
             },
             onPressCustomer: function(oEvent){
 
-                var oItem = oEvent.getSource().getBindingContext("customerModel");
+                var oItem = oEvent.getSource().getBindingContext(Constants.MODEL.model_name);
 
                 const sPath = oItem.getPath();
-                const oItemSelect = this.getView().getModel("customerModel").getProperty(sPath);
+                const oItemSelect = this.getView().getModel(Constants.MODEL.model_name).getProperty(sPath);
                 
                 console.log(oItemSelect);
 
                 const oModel = new JSONModel(oItemSelect);
 
-                this.getOwnerComponent().setModel(oModel, "selectedCustomerModel");
+                this.getOwnerComponent().setModel(oModel, Constants.MODEL.select_item_model);
                 
                 // var sCustomerId = oBindingContext.getProperty("CustomerID");
 
@@ -98,7 +96,7 @@ sap.ui.define([
 
                 // console.log(oSelectedCustomerModel);
 
-                this.getOwnerComponent().getRouter().navTo("ViewDetail", {
+                this.getOwnerComponent().getRouter().navTo(Constants.VIEW.view_detail, {
                     customerId: oItemSelect.CustomerID
                   });
 

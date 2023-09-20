@@ -7,13 +7,13 @@
             <Toolbar>
                 <Button icon="sap-icon://world" press="onChangeLanguage"/>
                 <ToolbarSpacer  />
-                <ComboBox placeholder="Seleccione un nombre" selectionChange="onChangeName" items="{
+                <ComboBox placeholder="{i18n>placeholderSelectName}" selectionChange="onChangeName" items="{
 					path: 'selectModel>/Customers',
 					sorter: { path: 'CompanyName' }
 				}">
                     <core:Item key="{key}" text="{selectModel>CompanyName}" />
                 </ComboBox>
-                <ComboBox placeholder="Seleccione un pais" selectionChange="onChangeCountry" items="{
+                <ComboBox placeholder="{i18n>placeholderSelectCountry}" selectionChange="onChangeCountry" items="{
 					path: 'selectModel>/Customers',
 					sorter: { path: 'Country' }
 				}">
@@ -22,12 +22,10 @@
 
             </Toolbar>
 
-
-
             <Table id="listCustomers" items="{customerModel>/}">
                 <columns>
                     <Column >
-                        <Text text="Customer ID"/>
+                        <Text text="{i18n>customerId}"/>
                     </Column>
                     <Column >
                         <Text text="{i18n>company}"/>

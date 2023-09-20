@@ -1,13 +1,12 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/UIComponent",
     "com/proy/customers/util/Commons"
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,UIComponent,Commons) {
+    function (Controller,Commons) {
         "use strict";
 
         return Controller.extend("com.proy.customers.controller.Detail", {
