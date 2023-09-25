@@ -12,11 +12,11 @@ sap.ui.define([], function (){
         VIEW:    {
                     view_detail: "ViewDetail", 
         },
-
+        //agregar 
         FILTER: {
             select_id_name: ""
         },
-
+        //agregar
         ID: {
             list_id: ""
         }

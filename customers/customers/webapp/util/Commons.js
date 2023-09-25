@@ -3,7 +3,7 @@ sap.ui.define([
     "sap/ui/core/routing/History"
 ], function (UIComponent, History) {
     "use strict";
-
+    //borrar lo que importo pero no uso 
     return {
         navBack: function () {
             const oHistory = History.getInstance();
